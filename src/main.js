@@ -1,7 +1,7 @@
-import * as THREE from './three.module.js';
-import * as FONTLOADER from './FontLoader.js';
-import * as TEXTGEOMETRY from './TextGeometry.js';
-import * as ORBIT from './OrbitControls.js';
+import * as THREE from './js/three.module.js';
+import * as FONTLOADER from './js/FontLoader.js';
+import * as TEXTGEOMETRY from './js/TextGeometry.js';
+import * as ORBIT from './js/OrbitControls.js';
 
 let ratio, camera, renderer, scene, controls;
 let input, words
