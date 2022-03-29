@@ -4,7 +4,7 @@ import * as TEXTGEOMETRY from './js/TextGeometry.js';
 import * as ORBIT from './js/OrbitControls.js';
 
 let ratio, camera, renderer, scene, controls, defaultFont;
-let input, words;
+let words;
 
 loadFont();
 init();
@@ -25,7 +25,7 @@ function init() {
 
 //Inits words adds update event listener
 function initWords() {
-  input = document.getElementById('input');
+  var input = document.getElementById('input');
   input.addEventListener('keyup', updateWords);
   input.value = 'Type Here!';
   addText(getTextGeo(input.value));
