@@ -1,12 +1,14 @@
 import * as THREE from "./js/libraries/three.module.js";
 import { OrbitControls } from "./js/libraries/OrbitControls.js";
 import { loadFont } from "./js/modules/base.js";
+import { initGravity, gravityAnimate } from "./js/modules/gravity.js";
 
 export let scene;
 let camera, renderer, controls, ratio;
 
 loadFont();
 init();
+initGravity();
 
 function init() {
   ratio = window.innerWidth / window.innerHeight;

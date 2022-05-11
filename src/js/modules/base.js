@@ -2,7 +2,6 @@ import { scene } from "../../main.js";
 import { FontLoader } from "../libraries/FontLoader.js";
 import { TextGeometry } from "../libraries/TextGeometry.js";
 import * as THREE from "../libraries/three.module.js";
-
 let defaultFont, words;
 
 function initWords() {
