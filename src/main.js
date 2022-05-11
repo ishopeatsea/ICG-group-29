@@ -3,6 +3,7 @@ import { OrbitControls } from "./js/libraries/OrbitControls.js";
 import { loadFont, createPointLight } from "./js/modules/base.js";
 import { start } from "./js/modules/buildingMaker.js";
 import { shaderMaterial } from './js/modules/flowFieldShader.js';
+import { initGravity, gravityAnimate } from "./js/modules/gravity.js";
 
 let camera, renderer, controls, ratio, scene;
 let time = Date.now();
@@ -10,6 +11,7 @@ let time = Date.now();
 loadFont();
 init();
 start();
+initGravity();
 
 function init() {
   ratio = window.innerWidth / window.innerHeight;

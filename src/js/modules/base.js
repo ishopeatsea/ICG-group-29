@@ -4,7 +4,6 @@ import { TextGeometry } from "../libraries/TextGeometry.js";
 import { start } from './buildingMaker.js';
 import { shaderMaterial } from '../modules/flowFieldShader.js';
 import * as THREE from "../libraries/three.module.js";
-
 let defaultFont, words;
 
 function initWords() {
