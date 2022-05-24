@@ -1,19 +1,28 @@
 import * as THREE from "./js/libraries/three.module.js";
 import { OrbitControls } from "./js/libraries/OrbitControls.js";
-import { loadFont, createPointLight } from "./js/modules/base.js";
+import { GUI } from '../node_modules/dat.gui/build/dat.gui.module.js';
+//Self defined
 import { start } from "./js/modules/buildingMaker.js";
 import { shaderMaterial } from './js/modules/flowFieldShader.js';
-import { initGravity, gravityAnimate } from "./js/modules/gravity.js";
+import { loadFont, createPointLight } from "./js/modules/base.js";
+import { initGravityModule } from "./js/modules/gravity.js";
+import { Selector } from "./js/modules/objectSelector.js";
 
-let camera, renderer, controls, ratio, scene;
+let camera, renderer, controls, ratio, scene, gui, selector;
 let time = Date.now();
-
+//createGUI();
 loadFont();
 init();
-start();
-initGravity();
+//start();
+initGravityModule();
 
-/*
+var shaderStatus  = {
+  state: false,
+  switchState: function () {
+    this.state = !this.state;
+  },
+};
+
 function init() {
   ratio = window.innerWidth / window.innerHeight;
 
@@ -37,6 +46,21 @@ function init() {
   controls = new OrbitControls(camera, renderer.domElement);
   console.log("Scene children", scene.children);
 }
+
+function createGUI(){
+  gui = new GUI();
+  selector = new Selector();
+  const placeObjects = ['Gravity Simulation', 'Building Generation'];
+  const selectionFolder = gui.addFolder('Objects');
+  selectionFolder.add(selector, 'currentSelection', placeObjects)
+              .setValue('Default Tree')
+              .name("Selection List");
+  selectionFolder.open();
+
+  gui.add(shaderStatus, 'switchState');
+  
+}
+
 
 requestAnimationFrame(MyUpdateLoop); //Enters update loop
 function MyUpdateLoop() {
@@ -64,4 +88,4 @@ function MyResize() {
 window.addEventListener("resize", MyResize);
 
 export { camera, scene };
-*/
+

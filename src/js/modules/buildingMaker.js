@@ -59,7 +59,7 @@ function start() {
                 refinedEdges.push(newEdge);
             }
         }
-        console.log(refinedEdges);
+        //console.log(refinedEdges);
         var roads = [];
         for (var i = 0; i < refinedEdges.length; i++) {
             var up = bumpUp(refinedEdges[i].endpointA, refinedEdges[i].endpointB, refinedEdges[i].endpointA.x);

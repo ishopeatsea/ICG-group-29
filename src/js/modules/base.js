@@ -40,15 +40,15 @@ function getTextGeo(myText) {
 
 function addText(textGeometry) {
   //Text material can probably be another input
-  console.log(camera.position);
+ // console.log(camera.position);
 
-  scene.add(createPointLight(camera.position)); //Nathans pointlight
+  scene.add(createPointLight(camera.position)); 
   //var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
   //words = new THREE.Mesh(textGeometry, textMaterial);
-  //Shader material
-
+  //add if function that checks for shadermaterial option
+  //if true do this one
   words = new THREE.Mesh(textGeometry, shaderMaterial);
-
+  //else do plain one :)
   textGeometry.computeBoundingBox();
   const centerOffSet =
     -0.5 * (textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x);
