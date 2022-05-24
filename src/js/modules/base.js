@@ -1,6 +1,7 @@
 import { scene } from "../../main.js";
 import { FontLoader } from "../libraries/FontLoader.js";
 import { TextGeometry } from "../libraries/TextGeometry.js";
+import { shaderMaterial } from '../modules/flowFieldShader.js';
 import * as THREE from "../libraries/three.module.js";
 
 let defaultFont, words;
@@ -33,13 +34,13 @@ function getTextGeo(myText) {
     bevelOffset: 0,
     bevelSegments: 30,
   });
+  textGeo.castShadow = true;
   return textGeo;
 }
 
 function addText(textGeometry) {
-  //Text material can probably be another input
-  var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  words = new THREE.Mesh(textGeometry, textMaterial);
+
+  words = new THREE.Mesh(textGeometry, shaderMaterial);
 
   textGeometry.computeBoundingBox();
   const centerOffSet =
