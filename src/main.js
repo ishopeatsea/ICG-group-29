@@ -28,7 +28,7 @@ function init() {
   document.body.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color('black');
+  scene.background = new THREE.Color('skyblue');
   scene.add(camera);
 
   controls = new OrbitControls(camera, renderer.domElement);
