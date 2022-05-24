@@ -2,9 +2,14 @@ import * as THREE from "../libraries/three.module.js";
 import { OrbitControls } from "../libraries/OrbitControls.js";
 import { TextGeometry } from "../libraries/TextGeometry.js";
 import { FontLoader } from "../libraries/FontLoader.js";
+import { scene, camera, renderer } from "../../main.js";
 
-var renderer, scene, camera, controls, options, gui, loader;
-
+var controls, options, gui, loader;
+var enabled = false;
+var raycaster;
+var mouseClickPos = new THREE.Vector2();
+var vec = new THREE.Vector3();
+var pos = new THREE.Vector3();
 var world,
   timestep,
   spherePhysMat,
@@ -12,13 +17,19 @@ var world,
   groundContactPhysMat,
   ballContactPhysMat;
 
-function initGravityModule() {
-  initSceneSetup();
-  initGUI();
-  initLighting();
-  initGravitySetup();
-  initMeshes();
-  generateLetterSpheres(450);
+function toggleGravityModule() {
+  if (enabled) {
+    //initSceneSetup();
+    scene.clear();
+    initGUI();
+    raycaster = new THREE.Raycaster();
+    initLighting();
+    initGravitySetup();
+    initMeshes();
+    generateLetterSpheres(450);
+    requestAnimationFrame(MyUpdateLoop);
+  }
+  enabled = !enabled;
 }
 
 //Initiliase Scene
@@ -103,10 +114,7 @@ function initGravitySetup() {
 }
 
 //Update Loop
-requestAnimationFrame(MyUpdateLoop);
 function MyUpdateLoop() {
-  renderer.render(scene, camera);
-  controls.update();
   gravityUpdate();
   requestAnimationFrame(MyUpdateLoop);
 }
@@ -132,8 +140,6 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-const raycaster = new THREE.Raycaster();
-const mouseClickPos = new THREE.Vector2();
 var selectedObjected;
 window.addEventListener("click", (event) => {
   if (selectedObjected !== null) {
@@ -152,8 +158,6 @@ window.addEventListener("click", (event) => {
   });
 });
 
-var vec = new THREE.Vector3();
-var pos = new THREE.Vector3();
 window.addEventListener("mousemove", (event) => {
   if (selectedObjected !== null && selectedObjected !== undefined) {
     vec.set(
@@ -539,4 +543,4 @@ function initMeshes() {
   floorMesh.quaternion.copy(groundBody.quaternion);
 }
 
-export { initGravityModule };
+export { toggleGravityModule };

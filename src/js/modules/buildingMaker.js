@@ -3,8 +3,8 @@ import { scene } from "../../main.js";
 import { fortunes } from "./fortunes.js"
 import { completeEdge, edge } from './beachLine.js';
 let planeWidth, planeHeight, maxY, maxX;
-planeWidth = 1000;
-planeHeight = 1000;
+planeWidth = 1500;
+planeHeight = 1500;
 maxY = planeHeight / 2;
 maxX = planeWidth / 2;
 class area {
@@ -34,7 +34,7 @@ function createPlane() {
 function start() {
     var word = document.getElementById("input").value;
     var numPoints = 10;
-    var numBuildings = 6000;
+    var numBuildings = 100000;
     var points = [];
     createPlane();
     if (word.length > 1) {

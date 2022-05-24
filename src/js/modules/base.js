@@ -1,10 +1,24 @@
 import { scene, camera } from "../../main.js";
 import { FontLoader } from "../libraries/FontLoader.js";
 import { TextGeometry } from "../libraries/TextGeometry.js";
-import { start } from './buildingMaker.js';
-import { shaderMaterial } from '../modules/flowFieldShader.js';
+import { start } from "./buildingMaker.js";
+import { shaderMaterial } from "../modules/flowFieldShader.js";
 import * as THREE from "../libraries/three.module.js";
 let defaultFont, words;
+
+let activatedModule = "shaders";
+
+function activateModule(module) {
+  if (module === "gravity") {
+    activatedModule = "gravity";
+  }
+  if (module === "building") {
+    activatedModule = "building";
+  }
+  if (module === "shaders") {
+    activatedModule = "shaders";
+  }
+}
 
 function initWords() {
   var input = document.getElementById("input");
@@ -40,15 +54,19 @@ function getTextGeo(myText) {
 
 function addText(textGeometry) {
   //Text material can probably be another input
- // console.log(camera.position);
+  // console.log(camera.position);
 
-  scene.add(createPointLight(camera.position)); 
+  scene.add(createPointLight(camera.position));
   //var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
   //words = new THREE.Mesh(textGeometry, textMaterial);
   //add if function that checks for shadermaterial option
   //if true do this one
-  words = new THREE.Mesh(textGeometry, shaderMaterial);
-  //else do plain one :)
+  if (activatedModule === "shaders") {
+    words = new THREE.Mesh(textGeometry, shaderMaterial);
+  } else {
+    words = new THREE.Mesh(textGeometry);
+  }
+
   textGeometry.computeBoundingBox();
   const centerOffSet =
     -0.5 * (textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x);
@@ -63,15 +81,15 @@ function addText(textGeometry) {
 }
 
 function createAmLight() {
-  const color = 0xFFFFFF;
+  const color = 0xffffff;
   const intensity = 1;
   const light = new THREE.AmbientLight(color, intensity);
-  return light
+  return light;
 }
 
 function createHemiLight() {
-  const sky = 0XFFFFFF;
-  const ground = 0X00b300;
+  const sky = 0xffffff;
+  const ground = 0x00b300;
   const intensity = 0.5;
   const light = new THREE.HemisphereLight(sky, ground, intensity);
   return light;
@@ -79,7 +97,7 @@ function createHemiLight() {
 
 function createPointLight(point) {
   //const randColour = new Color(Math.random(), Math.random(), Math.random());
-  const color = 0xFFFFFF;
+  const color = 0xffffff;
   const light = new THREE.PointLight(color, 0.8, 5000);
   if (point != null) {
     light.position.set(point.x, point.y, point.z);
@@ -92,18 +110,22 @@ function createPointLight(point) {
 //   resetScene();
 // }
 
-
 function resetScene() {
-  scene.clear();
-  // console.log(camera.postion);
-  if (scene.children.length == 0) {
-    //if value is on buiild buildings or if gravity is on do that instead
+  console.log(activatedModule);
+  if (activatedModule !== "gravity") {
+    scene.clear();
+    // console.log(camera.postion);
+    if (scene.children.length == 0) {
+      //if value is on buiild buildings or if gravity is on do that instead
 
-    camera.add(createPointLight());
-    addText(getTextGeo(document.getElementById("input").value));
-    start();
-    scene.add(createPointLight(camera.position))
+      camera.add(createPointLight());
+      addText(getTextGeo(document.getElementById("input").value));
+      if (activatedModule === "building") {
+        start();
+      }
+      scene.add(createPointLight(camera.position));
+    }
   }
 }
 
-export { loadFont, createPointLight };
+export { loadFont, createPointLight, activateModule };

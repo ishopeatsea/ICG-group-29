@@ -1,28 +1,50 @@
 import * as THREE from "./js/libraries/three.module.js";
 import { OrbitControls } from "./js/libraries/OrbitControls.js";
-import { GUI } from '../node_modules/dat.gui/build/dat.gui.module.js';
 //Self defined
 import { start } from "./js/modules/buildingMaker.js";
-import { shaderMaterial } from './js/modules/flowFieldShader.js';
-import { loadFont, createPointLight } from "./js/modules/base.js";
-import { initGravityModule } from "./js/modules/gravity.js";
+import { shaderMaterial } from "./js/modules/flowFieldShader.js";
+import {
+  loadFont,
+  createPointLight,
+  activateModule,
+} from "./js/modules/base.js";
+import { toggleGravityModule } from "./js/modules/gravity.js";
 import { Selector } from "./js/modules/objectSelector.js";
 
 let camera, renderer, controls, ratio, scene, gui, selector;
+let options;
 let time = Date.now();
-//createGUI();
+
+let currentModule = "default";
 loadFont();
 init();
-//start();
-initGravityModule();
-
-var shaderStatus  = {
-  state: false,
-  switchState: function () {
-    this.state = !this.state;
+toggleGravityModule(false);
+options = {
+  activate_buildings: function () {
+    activateModule("building");
+    scene.clear();
+    loadFont();
+    start();
+  },
+  activate_gravity: function () {
+    if (currentModule != "gravity") {
+      activateModule("gravity");
+      currentModule = "gravity";
+      toggleGravityModule();
+    } else {
+      currentModule = "default";
+    }
+  },
+  activate_shaders: function () {
+    activateModule("shaders");
+    scene.clear();
+    loadFont();
   },
 };
-
+gui = new dat.GUI();
+gui.add(options, "activate_buildings").name("Activate Buildings");
+gui.add(options, "activate_gravity").name("Activate Gravity");
+gui.add(options, "activate_shaders").name("Activate Shaders");
 
 function init() {
   ratio = window.innerWidth / window.innerHeight;
@@ -41,27 +63,11 @@ function init() {
   document.body.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color('skyblue');
+  scene.background = new THREE.Color("skyblue");
   scene.add(camera);
 
   controls = new OrbitControls(camera, renderer.domElement);
-  console.log("Scene children", scene.children);
 }
-
-function createGUI(){
-  gui = new GUI();
-  selector = new Selector();
-  const placeObjects = ['Gravity Simulation', 'Building Generation'];
-  const selectionFolder = gui.addFolder('Objects');
-  selectionFolder.add(selector, 'currentSelection', placeObjects)
-              .setValue('Default Tree')
-              .name("Selection List");
-  selectionFolder.open();
-
-  gui.add(shaderStatus, 'switchState');
-  
-}
-
 
 requestAnimationFrame(MyUpdateLoop); //Enters update loop
 function MyUpdateLoop() {
@@ -85,8 +91,6 @@ function MyResize() {
   renderer.render(scene, camera);
 }
 
-
 window.addEventListener("resize", MyResize);
 
-export { camera, scene };
-
+export { camera, scene, renderer };
