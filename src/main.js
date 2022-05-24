@@ -23,6 +23,7 @@ var shaderStatus  = {
   },
 };
 
+
 function init() {
   ratio = window.innerWidth / window.innerHeight;
 
