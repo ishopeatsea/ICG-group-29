@@ -81,15 +81,16 @@ function createPointLight(point){
   return light;
 }
 //Event function
-function updateWords() {
-  resetScene();
-}
+// function updateWords() {
+//   resetScene();
+// }
 
 
 function resetScene(){
   scene.clear();
-  console.log(camera.postion);
+  // console.log(camera.postion);
   if(scene.children.length == 0){
+    //if value is on buiild buildings or if gravity is on do that instead
   addText(getTextGeo(document.getElementById("input").value));
   start();
   scene.add(createPointLight(camera.position))
