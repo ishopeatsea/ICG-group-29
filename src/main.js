@@ -13,6 +13,7 @@ init();
 start();
 initGravity();
 
+/*
 function init() {
   ratio = window.innerWidth / window.innerHeight;
 
@@ -63,3 +64,4 @@ function MyResize() {
 window.addEventListener("resize", MyResize);
 
 export { camera, scene };
+*/
