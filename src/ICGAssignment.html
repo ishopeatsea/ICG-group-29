@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
     <meta charset="UTF-8">
     <title> template html file </title>
     <link rel="stylesheet" href="stylesheet.css">
@@ -11,16 +10,6 @@
 <body>
     <script src="main.js" type="module"> </script>
     <script type="x-shader/x-vertex" id="vertexShader">
-=======
-  <meta charset="UTF-8">
-  <title> template html file </title>
-  <link rel="stylesheet" href="stylesheet.css">
-</head>
-
-<body>
-  <script src="main.js" type="module"> </script>
-  <script type="x-shader/x-vertex" id="vertexShader">
->>>>>>> bf1bc650d7ccdc8b99742bee30c2c8093c994794
       varying vec3 vNormal;
       varying vec2 vUv;
 
@@ -31,11 +20,7 @@
           vUv = uv;
         }
   </script>
-<<<<<<< HEAD
     <script type="x-shader/x-fragment" id="fragmentShader">
-=======
-  <script type="x-shader/x-fragment" id="fragmentShader">
->>>>>>> bf1bc650d7ccdc8b99742bee30c2c8093c994794
     uniform float u_time;
     uniform vec2 u_resolution;
     
@@ -98,11 +83,7 @@
       gl_FragColor = vec4(vec3(-u.x * vNormal.x * O.x, fract(max(u.x, fract(vNormal.y * u.y))) *  O.y, vNormal.z * O.z), 1.0);
     }
   </script>
-<<<<<<< HEAD
     <input id="input" type="text" value="EDIT ME" />
-=======
-  <input id="input" type="text" value="EDIT ME" />
->>>>>>> bf1bc650d7ccdc8b99742bee30c2c8093c994794
 </body>
 
 </html>
