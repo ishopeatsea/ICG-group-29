@@ -47,6 +47,7 @@ function addText(textGeometry) {
   //var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
   //words = new THREE.Mesh(textGeometry, textMaterial);
   //Shader material
+
   words = new THREE.Mesh(textGeometry, shaderMaterial);
 
   textGeometry.computeBoundingBox();
