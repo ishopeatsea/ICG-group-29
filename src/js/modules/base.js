@@ -2,6 +2,7 @@ import { scene, camera } from "../../main.js";
 import { FontLoader } from "../libraries/FontLoader.js";
 import { TextGeometry } from "../libraries/TextGeometry.js";
 import { start } from './buildingMaker.js';
+import { shaderMaterial } from '../modules/flowFieldShader.js';
 import * as THREE from "../libraries/three.module.js";
 
 let defaultFont, words;
@@ -34,15 +35,19 @@ function getTextGeo(myText) {
     bevelOffset: 0,
     bevelSegments: 30,
   });
+  textGeo.castShadow = true;
   return textGeo;
 }
 
 function addText(textGeometry) {
   //Text material can probably be another input
   console.log(camera.position);
-  scene.add(createPointLight(camera.position));
-  var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  words = new THREE.Mesh(textGeometry, textMaterial);
+
+  scene.add(createPointLight(camera.position)); //Nathans pointlight
+  //var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  //words = new THREE.Mesh(textGeometry, textMaterial);
+  //Shader material
+  words = new THREE.Mesh(textGeometry, shaderMaterial);
 
   textGeometry.computeBoundingBox();
   const centerOffSet =
@@ -57,26 +62,28 @@ function addText(textGeometry) {
   scene.add(words);
 }
 
-function createAmLight(){
+function createAmLight() {
   const color = 0xFFFFFF;
-  const intensity =1;
+  const intensity = 1;
   const light = new THREE.AmbientLight(color, intensity);
   return light
- }
+}
 
- function createHemiLight(){
+function createHemiLight() {
   const sky = 0XFFFFFF;
   const ground = 0X00b300;
   const intensity = 0.5;
   const light = new THREE.HemisphereLight(sky, ground, intensity);
   return light;
-} 
+}
 
-function createPointLight(point){
+function createPointLight(point) {
   //const randColour = new Color(Math.random(), Math.random(), Math.random());
   const color = 0xFFFFFF;
   const light = new THREE.PointLight(color, 0.8, 5000);
-  light.position.set(point.x, point.y, point.z);
+  if (point != null) {
+    light.position.set(point.x, point.y, point.z);
+  }
   light.name = "pointLight";
   return light;
 }
@@ -86,14 +93,16 @@ function createPointLight(point){
 // }
 
 
-function resetScene(){
+function resetScene() {
   scene.clear();
   // console.log(camera.postion);
-  if(scene.children.length == 0){
+  if (scene.children.length == 0) {
     //if value is on buiild buildings or if gravity is on do that instead
-  addText(getTextGeo(document.getElementById("input").value));
-  start();
-  scene.add(createPointLight(camera.position))
+
+    camera.add(createPointLight());
+    addText(getTextGeo(document.getElementById("input").value));
+    start();
+    scene.add(createPointLight(camera.position))
   }
 }
 

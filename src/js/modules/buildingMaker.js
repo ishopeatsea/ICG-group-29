@@ -37,7 +37,7 @@ function start() {
     var numBuildings = 6000;
     var points = [];
     createPlane();
-    if(word.length > 1){
+    if (word.length > 1) {
         var randSeed = sortWord(word);
         for (var i = 0; i < numPoints; i++) {
             var sum = 0;
@@ -64,11 +64,11 @@ function start() {
         for (var i = 0; i < refinedEdges.length; i++) {
             var up = bumpUp(refinedEdges[i].endpointA, refinedEdges[i].endpointB, refinedEdges[i].endpointA.x);
             var down = bumpDown(refinedEdges[i].endpointA, refinedEdges[i].endpointB, refinedEdges[i].endpointA.x);
-            if(!(Number.isNaN(up[1])) || 
-            !(Number.isNaN(up[0])) ||
-            !(Number.isNaN(down[1])) || 
-            !(Number.isNaN(down[0])))
-            var newArea = new area(up[1], up[0], down[1], down[0]); //For each edge we get an area class
+            if (!(Number.isNaN(up[1])) ||
+                !(Number.isNaN(up[0])) ||
+                !(Number.isNaN(down[1])) ||
+                !(Number.isNaN(down[0])))
+                var newArea = new area(up[1], up[0], down[1], down[0]); //For each edge we get an area class
             roads.push(newArea);
         }
         console.log(roads);
@@ -81,13 +81,13 @@ function start() {
             for (var j = 5; j < planeHeight; j += inc) {
                 var placementPoint = new THREE.Vector2(currentWidth, currentHeight)
                 var isInRoad = false;
-                for(var k = 0; k < roads.length; k++){
+                for (var k = 0; k < roads.length; k++) {
                     isInRoad = roads[k].isInBound(placementPoint);
-                    if(isInRoad){//if true stop for loop
+                    if (isInRoad) {//if true stop for loop
                         break;
                     }
                 }
-                if(!isInRoad){
+                if (!isInRoad) {
                     createBuilding(placementPoint);
                     //console.log(currBuildings)
                     currBuildings++;
