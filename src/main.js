@@ -1,15 +1,16 @@
 import * as THREE from "./js/libraries/three.module.js";
 import { OrbitControls } from "./js/libraries/OrbitControls.js";
 import { loadFont } from "./js/modules/base.js";
-import { initGravity, gravityAnimate } from "./js/modules/gravity.js";
+import { initGravityModule } from "./js/modules/gravity.js";
 
 export let scene;
-let camera, renderer, controls, ratio;
+//let camera, renderer, controls, ratio;
 
-loadFont();
-init();
-initGravity();
+//loadFont();
+//init();
+initGravityModule();
 
+/*
 function init() {
   ratio = window.innerWidth / window.innerHeight;
   //Camera init
@@ -41,3 +42,4 @@ function MyResize() {
   renderer.render(scene, camera);
 }
 window.addEventListener("resize", MyResize);
+*/
